@@ -1,0 +1,51 @@
+<!-- src/app/components/dashboard/dashboard.component.html -->
+<div class="dashboard">
+    <h1>Dashboard</h1>
+    
+    <div class="stats-container">
+      <div class="stat-card">
+        <div class="stat-title">Total Students</div>
+        <div class="stat-value">{{ totalStudents }}</div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-title">Active Students</div>
+        <div class="stat-value">{{ activeStudents }}</div>
+      </div>
+    </div>
+    
+    <div class="recent-students">
+      <h2>Recent Students</h2>
+      <div class="student-table-container">
+        <table class="student-table" *ngIf="students.length > 0">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Grade</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let student of students.slice(0, 5)">
+              <td>{{ student.id }}</td>
+              <td>{{ student.firstName }} {{ student.lastName }}</td>
+              <td>{{ student.email }}</td>
+              <td>{{ student.grade }}</td>
+              <td>
+                <a [routerLink]="['/students', student.id]">View</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf="students.length === 0" class="no-data">
+          No students found.
+        </div>
+      </div>
+      
+      <div class="view-all">
+        <a routerLink="/students" class="btn">View All Students</a>
+      </div>
+    </div>
+  </div>
