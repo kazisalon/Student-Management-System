@@ -1,0 +1,89 @@
+<!-- auth.component.html -->
+<div class="flex justify-center items-center min-h-screen bg-gray-100">
+    <div class="bg-white rounded-lg shadow-xl p-8 w-full max-w-md">
+      <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-800">
+          {{ isLogin ? 'Sign In' : 'Create Account' }}
+        </h1>
+        <p class="text-gray-600 mt-2">
+          {{ isLogin ? 'Welcome back!' : 'Join our community today' }}
+        </p>
+      </div>
+  
+      <form [formGroup]="authForm" (ngSubmit)="onSubmit()" class="space-y-6">
+        <!-- Email Field -->
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+          <input 
+            type="email" 
+            id="email" 
+            formControlName="email"
+            class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+            [ngClass]="{'border-red-500': emailControl?.invalid && emailControl?.touched}"
+          >
+          <p *ngIf="emailControl?.invalid && emailControl?.touched" class="mt-1 text-sm text-red-500">
+            <span *ngIf="emailControl?.errors?.['required']">Email is required</span>
+            <span *ngIf="emailControl?.errors?.['email']">Please enter a valid email</span>
+          </p>
+        </div>
+  
+        <!-- Password Field -->
+        <div>
+          <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+          <input 
+            type="password" 
+            id="password" 
+            formControlName="password"
+            class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+            [ngClass]="{'border-red-500': passwordControl?.invalid && passwordControl?.touched}"
+          >
+          <p *ngIf="passwordControl?.invalid && passwordControl?.touched" class="mt-1 text-sm text-red-500">
+            <span *ngIf="passwordControl?.errors?.['required']">Password is required</span>
+            <span *ngIf="passwordControl?.errors?.['minlength']">Password must be at least 8 characters</span>
+          </p>
+        </div>
+  
+        <!-- Confirm Password Field (Signup only) -->
+        <div *ngIf="!isLogin">
+          <label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+          <input 
+            type="password" 
+            id="confirmPassword" 
+            formControlName="confirmPassword"
+            class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+            [ngClass]="{'border-red-500': confirmPasswordControl?.invalid && confirmPasswordControl?.touched}"
+          >
+          <p *ngIf="confirmPasswordControl?.invalid && confirmPasswordControl?.touched" class="mt-1 text-sm text-red-500">
+            Please confirm your password
+          </p>
+        </div>
+  
+        <!-- Error Message -->
+        <div *ngIf="errorMessage" class="p-3 bg-red-100 text-red-700 rounded-lg text-sm">
+          {{ errorMessage }}
+        </div>
+  
+        <!-- Submit Button -->
+        <button 
+          type="submit" 
+          class="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 text-white font-medium rounded-lg transition-colors"
+          [disabled]="authForm.invalid || isSubmitting"
+          [ngClass]="{'opacity-50 cursor-not-allowed': authForm.invalid || isSubmitting}"
+        >
+          <span *ngIf="isSubmitting" class="inline-block animate-spin mr-2">&#10227;</span>
+          {{ isLogin ? 'Sign In' : 'Create Account' }}
+        </button>
+  
+        <!-- Toggle between Login/Register -->
+        <div class="text-center mt-4">
+          <button 
+            type="button" 
+            (click)="toggleAuthMode()" 
+            class="text-blue-600 hover:text-blue-800 text-sm font-medium"
+          >
+            {{ isLogin ? "Don't have an account? Sign Up" : 'Already have an account? Sign In' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
