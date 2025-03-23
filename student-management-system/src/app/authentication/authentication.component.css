@@ -1,0 +1,42 @@
+/* auth.component.css */
+/* 
+  Note: Most styling is handled by Tailwind CSS utility classes in the template.
+  This file contains additional custom styles that aren't easily achieved with Tailwind.
+*/
+
+/* Custom loading animation */
+@keyframes fadeInOut {
+    0% { opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
+  }
+  
+  .animate-spin {
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  
+  /* Custom focus styles */
+  :focus {
+    outline: none;
+  }
+  
+  /* Additional styling for form validation states */
+  .ng-valid[required], .ng-valid.required {
+    border-left: 5px solid #42A948; /* green */
+  }
+  
+  .ng-touched.ng-invalid:not(form) {
+    border-left: 5px solid #a94442; /* red */
+  }
+  
+  /* Custom transitions */
+  .transition-colors {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
